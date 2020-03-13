@@ -10,7 +10,6 @@ class BarcodeGeneratorController {
     this.channel,
     this._barcodeState,
   ) : assert(channel != null) {
-    debugPrint(_barcodeState.creationParams.toString());
     channel.setMethodCallHandler(_handleMethodCall);
   }
   static Future<BarcodeGeneratorController> init(
