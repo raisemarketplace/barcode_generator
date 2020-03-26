@@ -27,8 +27,6 @@ class BarcodeGeneratorController {
   }
 
   Future<dynamic> _handleMethodCall(MethodCall call) async {
-    debugPrint(call.method);
-    debugPrint(call.arguments.toString());
     switch (call.method) {
       case 'generatedBarcode':
         break;
