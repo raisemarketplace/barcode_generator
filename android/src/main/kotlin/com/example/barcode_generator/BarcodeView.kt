@@ -1,7 +1,7 @@
 package com.example.barcode_generator
 
 import android.content.Context
-import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -73,7 +73,7 @@ class BarcodeView(context: Context, messenger: BinaryMessenger, id: Int, args: M
                     value,
                     barcodeFormat,
                     1000,
-                    1000
+                    250
             )
             val barcodeEncoder = BarcodeEncoder()
             val bitmap = barcodeEncoder.createBitmap(bitMatrix)
@@ -83,7 +83,6 @@ class BarcodeView(context: Context, messenger: BinaryMessenger, id: Int, args: M
         }
 
     }
-
 
     fun getZXBarcodeFormat(string: String) : BarcodeFormat {
         when (string) {
