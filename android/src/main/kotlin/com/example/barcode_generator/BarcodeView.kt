@@ -28,7 +28,16 @@ class BarcodeView(context: Context, messenger: BinaryMessenger, id: Int, args: M
                 val string = argsList.get("fromString") as String
                 val codeType = argsList.get("codeType") as String
                 val barCodeType = getZXBarcodeFormat(codeType)
-                generateQR(string,barCodeType)
+                var width : Int
+                var height : Int
+                if(is2DBarcode(barCodeType)){
+                    width = 500
+                    height = 500
+                }else{
+                    width = 1000
+                    height = 250
+                }
+                generateQR(string,barCodeType, width, height)
             }else{
                 textView.text = "Wrong Format"
             }
@@ -66,14 +75,15 @@ class BarcodeView(context: Context, messenger: BinaryMessenger, id: Int, args: M
 
     override fun dispose() {}
 
-    private fun generateQR(value: String, barcodeFormat:BarcodeFormat = BarcodeFormat.CODE_128){
+    private fun generateQR(value: String, barcodeFormat:BarcodeFormat = BarcodeFormat.CODE_128, width:Int, height: Int){
         val bitMatrix: BitMatrix
+        val dpiWith =
         try {
             bitMatrix = MultiFormatWriter().encode(
                     value,
                     barcodeFormat,
-                    1000,
-                    250
+                    width,
+                    height
             )
             val barcodeEncoder = BarcodeEncoder()
             val bitmap = barcodeEncoder.createBitmap(bitMatrix)
@@ -82,6 +92,14 @@ class BarcodeView(context: Context, messenger: BinaryMessenger, id: Int, args: M
             print(e.stackTrace)
         }
 
+    }
+
+    fun is2DBarcode(type: BarcodeFormat):Boolean {
+        return type == BarcodeFormat.PDF_417 ||
+                type == BarcodeFormat.QR_CODE ||
+                type == BarcodeFormat.DATA_MATRIX ||
+                type == BarcodeFormat.AZTEC ||
+                type == BarcodeFormat.MAXICODE;
     }
 
     fun getZXBarcodeFormat(string: String) : BarcodeFormat {
@@ -106,6 +124,9 @@ class BarcodeView(context: Context, messenger: BinaryMessenger, id: Int, args: M
             else -> return BarcodeFormat.CODE_128
         }
     }
+
+
+
     enum class StringBarcodeTypeEnum(val rawValue: String) {
         /** Aztec 2D barcode format. */
         kBarcodeFormatAztec("kBarcodeFormatAztec"),

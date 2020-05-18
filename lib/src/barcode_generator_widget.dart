@@ -38,7 +38,9 @@ class _BarcodeGeneratorState extends State<BarcodeGenerator> {
   Widget build(BuildContext context) {
     creationParams = <String, dynamic>{
       'fromString': widget.fromString,
-      'codeType': widget.codeType.toString().split('.')[1]
+      'codeType': widget.codeType.toString().split('.')[1],
+      'width' : widget.width,
+      'height' : widget.height
     };
     Widget childView;
     if (defaultTargetPlatform == TargetPlatform.android) {
