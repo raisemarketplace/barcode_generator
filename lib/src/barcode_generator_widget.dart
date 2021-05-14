@@ -1,3 +1,4 @@
+// @dart=2.9
 part of barcode_generator;
 
 typedef void BarcodeCreatedCallback(BarcodeGeneratorController controller);
@@ -39,8 +40,8 @@ class _BarcodeGeneratorState extends State<BarcodeGenerator> {
     creationParams = <String, dynamic>{
       'fromString': widget.fromString,
       'codeType': widget.codeType.toString().split('.')[1],
-      'width' : widget.width,
-      'height' : widget.height
+      'width': widget.width,
+      'height': widget.height
     };
     Widget childView;
     if (defaultTargetPlatform == TargetPlatform.android) {

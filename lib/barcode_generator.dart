@@ -1,3 +1,4 @@
+// @dart=2.9
 library barcode_generator;
 
 import 'dart:async';
